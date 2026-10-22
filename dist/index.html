@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#a1dce7"><meta name="description" content="Deine kleine Welt über den Wolken. Erkunde schwebende Inseln, sammle Kristalle und baue deinen eigenen Weg.">
+  <title>SKYBLOCK RUN — Über den Wolken</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7Z M3 7l9 5 9-5 M12 12v10"/></symbol>
+<symbol id="i-gem" viewBox="0 0 24 24"><path d="m8 3-6 7 10 12 10-12-6-7Z M2 10h20 M8 3l4 19 4-19"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 8a3 3 0 1 1 5 2c-2 1-2 2-2 4m0 3v.1"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 1 8M3 3v7h7"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 22V3c5-5 9 5 14 0v11c-5 5-9-5-14 0"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M20 15c2-1 2-4 1-7C18-1 3 0 2 11c-1 7 8 12 12 9 2-2-2-4 1-5Z"/><path d="M7 8h.1M12 5h.1M17 8h.1M6 13h.1"/></symbol>
+<symbol id="i-jump" viewBox="0 0 24 24"><path d="m6 10 6-6 6 6M12 4v13M4 21h16"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M5 19 19 5"/></symbol>
+<symbol id="i-run" viewBox="0 0 24 24"><circle cx="15" cy="4" r="2"/><path d="m5 9 5-2 5 5 5-1M12 9l-4 6 6 3-2 4M8 15l-5 5"/></symbol>
+</defs></svg>
+<main id="game" aria-label="Spielbare 3D-Inselwelt"><canvas id="world" tabindex="0" aria-label="Spielwelt: WASD oder Pfeiltasten bewegen, Leertaste springen, Maus ziehen dreht die Kamera"></canvas></main>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="SKYBLOCK RUN Startseite"><span class="brand-icon"><svg><use href="#i-cube"/></svg></span><span>SKYBLOCK<span class="brand-light"> RUN</span></span></a>
+  <div class="top-actions"><div class="crystal-counter" title="Gesammelte Kristalle"><svg><use href="#i-gem"/></svg><b id="gem-count">0</b><span id="gem-total">/ 12</span></div><button class="icon-button" id="sound" aria-label="Sound einschalten" aria-pressed="false" title="Sound einschalten"><svg><use href="#i-sound"/></svg><span class="mute-slash"></span></button><button class="icon-button" id="help" aria-label="Steuerung und Pause" title="Steuerung und Pause"><svg><use href="#i-help"/></svg></button></div>
+</header>
+<section class="intro" id="intro" aria-labelledby="title">
+  <h1 id="title">Deine Welt.<br>Ein bisschen<br><em>höher.</em></h1>
+  <p>Sammle Kristalle und Baublöcke.<br>Spring, plane und baue deinen Weg zum Ziel.</p>
+  <button class="primary" id="start" disabled><span id="start-label">Welt wird aufgebaut …</span><svg><use href="#i-arrow"/></svg></button>
+  <button class="text-button intro-bonus hidden" id="intro-bonus">Bonuslevel: Wolkenlauf</button>
+  <button class="text-button intro-bonus hidden" id="intro-storm">Level 3: Sturmspitzen</button>
+  <button class="text-button intro-bonus hidden" id="intro-secret">Geheimwelt: Sternengrotte</button>
+  <div class="intro-meta"><span class="status-dot"></span>Dein Abenteuer. Dein Tempo.</div>
+</section>
+<div class="world-caption" id="world-caption"><span class="compass">N <i></i></span><div><b>WOLKENARCHIPEL</b><span>Drei Welten. Immer weiter nach oben.</span></div></div>
+<div class="hud hidden" id="hud">
+  <div class="location"><span class="status-dot"></span><span id="location">Grüner Hafen</span><span class="location-divider"></span><span id="timer">00:00</span></div>
+  <section class="mission"><div class="mission-title"><svg><use href="#i-flag"/></svg><b>Der Weg ist deiner.</b><span class="stock" title="Verfügbare Baublöcke"><svg><use href="#i-cube"/></svg><b id="inventory-count">12</b></span></div><p id="mission-text">Sammle Kristalle und Holzpakete. Vor dem Ziel baust du deine eigene Brücke.</p><p class="build-guidance hidden" id="build-guidance"></p><button class="mission-action hidden" id="bridge-action">Brückenblock setzen · 1 Block</button><button class="mission-action hidden" id="bonus-action">Bonuslevel starten</button><button class="mission-action hidden" id="storm-action">Sturmspitzen starten</button><button class="mission-action hidden" id="secret-action">Sternengrotte besuchen</button><div class="progress-track"><span id="progress"></span></div><div class="mission-foot"><span id="checkpoint-label">Startinsel</span><button id="respawn" title="Zurück zum Checkpoint (R)" aria-label="Zurück zum Checkpoint"><svg><use href="#i-reset"/></svg></button></div></section>
+  <nav class="toolbelt" aria-label="Spielmodus"><button class="tool selected" id="explore" aria-pressed="true"><span class="keytag">1</span><svg><use href="#i-run"/></svg><span>Erkunden</span></button><button class="tool" id="build" aria-pressed="false"><span class="keytag">2</span><svg><use href="#i-cube"/></svg><span>Bauen</span></button><button class="tool" id="outfit" title="Outfit wechseln (C)"><span class="keytag">C</span><svg><use href="#i-palette"/></svg><span>Outfit</span></button></nav>
+  <div class="keyboard-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Laufen</span><span><kbd>SPACE</kbd> Doppelsprung</span><span><kbd>SHIFT</kbd> Sprinten</span><span>Maus ziehen: umsehen</span></div>
+  <div class="flight-note hidden" id="flight-note" role="status">Windkatapult betreten · Springen halten zum Gleiten</div>
+  <div class="map"><canvas id="minimap" width="160" height="160" aria-label="Inselkarte mit deiner Position"></canvas><span>DU BIST HIER</span></div>
+  <div class="build-note hidden" id="build-note"><svg><use href="#i-cube"/></svg><span><b>Bau deinen Weg</b><small>Klicken: Block setzen · Rechtsklick: entfernen</small></span><b id="blocks-left">12</b><button class="reclaim" id="reclaim-blocks">Bauten zurückholen</button></div>
+  <div class="touch-controls"><div id="joystick" aria-label="Joystick zum Bewegen"><div id="stick"></div></div><button id="touch-jump" aria-label="Springen"><svg><use href="#i-jump"/></svg></button></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog id="help-dialog"><button class="dialog-close icon-button" id="close-help" aria-label="Schliessen"><svg><use href="#i-close"/></svg></button><h2>Kurz durchatmen.</h2><p>Dein Abenteuer wartet auf dich.</p><dl class="controls-list"><div><dt>Laufen</dt><dd>W A S D / Pfeiltasten</dd></div><div><dt>Doppelsprung</dt><dd>Leertaste, zweimal</dd></div><div><dt>Sprinten</dt><dd>Shift halten</dd></div><div><dt>Umsehen</dt><dd>Maus ziehen / Q und E</dd></div><div><dt>Kamera näher / weiter</dt><dd>Mausrad</dd></div><div><dt>Checkpoint</dt><dd>R</dd></div><div><dt>Bauen / Erkunden</dt><dd>B oder 1 / 2</dd></div><div><dt>Outfit wechseln</dt><dd>C</dd></div></dl><p>Du startest jede Welt mit 12 Baublöcken. Holzpakete enthalten je 8 weitere. Die breiten Lücken vor den Zielen erfordern eigene Brücken. Baue frei oder setze mit der Bauhilfe einzelne Blöcke in deiner Nähe; laufe dabei auf deiner Brücke weiter. «Bauten zurückholen» bringt dich zum Checkpoint und gibt alle verbauten Blöcke dieser Welt zurück. Rechts vom Himmelstor erreichst du die Wolkenwarte ebenfalls nur mit einer Brücke.</p><p>Nach dem Wolkenlauf öffnet sich Sturmspitzen: Betritt die leuchtenden Windkatapulte und halte die Leertaste oder den Sprungknopf für die Gleitflügel. Mit den Richtungstasten oder dem Joystick lenkst du in der Luft.</p><p class="touch-help">Am Handy: links steuern, rechts wischen zum Umsehen. Der Pfeil lässt dich springen. Im Baumodus setzt ein Tippen einen Block; «Block zurück» entfernt den letzten.</p><button class="primary" id="resume">Weiter geht’s<svg><use href="#i-arrow"/></svg></button></dialog>
+<dialog id="win-dialog"><div class="win-gem"><svg><use href="#i-gem"/></svg></div><h2 id="win-title">Ganz oben.</h2><p id="win-description">Alle Kristalle. Alle Inseln. Dein Abenteuer.</p><div class="result"><b id="finish-time">00:00</b><span>DEINE ZEIT</span></div><p class="best" id="best"></p><button class="primary hidden" id="win-storm">Sturmspitzen starten<svg><use href="#i-arrow"/></svg></button><button class="primary" id="keep-playing">Weiter erkunden<svg><use href="#i-arrow"/></svg></button><button class="text-button hidden" id="return-main">Zurück zur Inselwelt</button><button class="text-button" id="restart">Neuen Lauf starten</button></dialog>
+<dialog id="bonus-dialog" aria-labelledby="bonus-title"><div class="win-gem"><svg><use href="#i-flag"/></svg></div><h2 id="bonus-title">Neue Welt freigeschaltet!</h2><p>Du hast die Wolkenwarte erreicht. Dein Checkpoint ist sicher. Im <b>Wolkenlauf</b> warten vier neue Inseln und acht goldene Kristalle auf dich.</p><p class="best" id="bonus-save-note"></p><button class="primary" id="start-bonus">Wolkenlauf starten<svg><use href="#i-arrow"/></svg></button><button class="text-button" id="bonus-later">Hier weiter erkunden</button></dialog>
+<dialog id="secret-dialog" aria-labelledby="secret-title"><div class="win-gem"><svg><use href="#i-gem"/></svg></div><h2 id="secret-title">Ein Fall ins Geheimnis.</h2><p>Unter den Wolken liegt die <b>Sternengrotte</b>. Finde sechs Sternsplitter und wecke die drei Runen: Ihr Licht wird zu Brücken.</p><p id="secret-save-note"></p><button class="primary" id="close-secret">Geheimwelt erkunden<svg><use href="#i-arrow"/></svg></button><button class="text-button" id="secret-return">Zurück zur Inselwelt</button></dialog>
+<div class="error hidden" id="error" role="alert"><h2>Die Welt konnte nicht starten.</h2><p id="error-text">Bitte lade die Seite neu oder öffne sie in einem Browser mit WebGL-Unterstützung.</p><button class="primary" onclick="location.reload()">Noch einmal laden</button></div>
+<noscript><div class="error">Diese 3D-Welt braucht JavaScript. Bitte aktiviere es in deinem Browser.</div></noscript>
+<script type="module" src="game.mjs"></script>
+</body></html>
